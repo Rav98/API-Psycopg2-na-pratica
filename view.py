@@ -100,8 +100,7 @@ class View():
         customerid = input("Digite o identificador do cleinte: ")
         enployerid = input("Digite o identificador do funcionario: ")
         orderdate = input("Digite a data do pedido (AAAA-MM-DD): ")
-        requireddate = input(
-            "Digite a data do fechamento do pedido (AAAA-MM-DD): ")
+        requireddate = input("Digite a data do fechamento do pedido (AAAA-MM-DD): ")
         shippeddate = input("Digite a data do envio do pedido (AAAA-MM-DD): ")
         freight = input("Digite o valor do frete: ")
         shipname = input("Digite o local do envio: ")

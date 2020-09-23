@@ -1,12 +1,11 @@
 import psycopg2
 
-
 class config:
     def __init__(self, dadosconexao):
         self.dadosconexao = dadosconexao
 
     def setParametros(self):
-        self.dadosconexao = "host='localhost' dbname='northwind' user='postgres' password='bd123'"
+        self.dadosconexao = "host='localhost' dbname='northwind' user='postgres' password='root'"
         return self
 
     def alteraBD(self, stringSQL, valores):
@@ -76,7 +75,7 @@ class config:
             sessao = conexao.cursor()
 
             # Executar a inserção do pedido na memória RAM - TABELA ORDERS
-            sessao.execute(string_sql_pedido, dadospedido)
+            sessao.execute(string_SQL_pedido, dadospedido)
 
             # Executar a inserção dos produtos na memória RAM - TABELA ORDERDETAILS
             for i in listaprodutos:
