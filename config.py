@@ -1,11 +1,12 @@
 import psycopg2
 
+
 class config:
     def __init__(self, dadosconexao):
         self.dadosconexao = dadosconexao
 
     def setParametros(self):
-        self.dadosconexao = "host='localhost' dbname='northwind' user='postgres' password='root'"
+        self.dadosconexao = "host='localhost' port='5432' dbname='northwind' user='postgres' password='bd123'"
         return self
 
     def alteraBD(self, stringSQL, valores):

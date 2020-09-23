@@ -10,37 +10,37 @@ class Controle:
         while opcao != 8:
             if opcao == 1:
                 l = self.view.coletadadosproduto()
-                prod = ProdutoM.criaProduto(l)
-                status = ProdutoM.cadastraProduto(prod)
+                prod = ProdutoM.criaProduto(self, l)
+                status = ProdutoM.cadastraProduto(self, prod)
                 self.view.imprimeStatus(status)
             if opcao == 2:
                 id = self.view.recebecodproduto()
-                status = ProdutoM.deletaproduto(id)
+                status = ProdutoM.deletaproduto(self, id)
                 self.view.imprimeStatus(status)
             if opcao == 3:
                 id = self.view.recebecodproduto()
-                prod = ProdutoM.consultaproduto(id)
-                self.view.imprimeProduto(prod)
+                prod = ProdutoM.consultaproduto(self, id)
+                self.view.imprimeproduto(prod)
             if opcao == 4:
                 id = self.view.recebecodproduto()
-                prod = ProdutoM.consultaproduto(id)
-                self.view.imprimeProduto(prod)
+                prod = ProdutoM.consultaproduto(self, id)
+                self.view.imprimeproduto(prod)
                 if(prod is not None):
-                    l = self.view.coletadadosprodutoupdate()
-                    status = ProdutoM.atualizaproduto(l)
+                    l = self.view.coletadadosprodutoupdate(self)
+                    status = ProdutoM.atualizaproduto(self, l)
                     self.view.imprimeProduto(status)
             if opcao == 5:
                 id = self.view.recebecodproduto()
-                l = PedidoM.consultarelatorio(id)
+                l = PedidoM.consultarelatorio(self, id)
                 self.view.imprimeRelatorio(l)
             if opcao == 6:
                 l = self.view.coletadadospedido()
-                p = self.view.coletaprodutospedido(l[0])
+                p = self.view.coletaprodutospedido(self, l[0])
                 status = PedidoM.cadastraVenda(l, p)
                 self.view.imprimeStatus(status)
             if opcao == 7:
-                l = self.view.coletadadosprodutoupdate()
-                status = PedidoM.alteraVenda(l)
+                l = self.view.coletadadosprodutoupdate(self)
+                status = PedidoM.alteraVenda(self, l)
                 self.view.imprimeStatus(status)
             opcao = self.view.menu()
 
