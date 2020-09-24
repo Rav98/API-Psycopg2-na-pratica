@@ -6,7 +6,7 @@ class config:
         self.dadosconexao = dadosconexao
 
     def setParametros(self):
-        self.dadosconexao = "host='localhost' port='5432' dbname='Northwind' user='postgres' password='123qaz@'"
+        self.dadosconexao = "host='localhost' port='5432' dbname='northwind' user='postgres' password='bd123'"
         return self
 
     def alteraBD(self, stringSQL, valores):
@@ -96,6 +96,31 @@ class config:
                 conn.close()
             return "sucesso"
 
+    def atualizaordemvendaBD(self, string_SQL_pedido, dadospedido):
+        # Inciar a inserção do registro
+        conn = None
+        try:
+            # abrir a conexão
+            conexao = psycopg2.connect(config.setParametros(self).dadosconexao)
+
+            # abrir a sessão - a transação começa aqui
+            sessao = conexao.cursor()
+
+            # Executar a inserção do pedido na memória RAM - TABELA ORDERS
+            sessao.execute(string_SQL_pedido, dadospedido)
+
+            # Comitar a remoçao - fechar a transação
+            conexao.commit()
+
+            # Encerrar a sessão
+            sessao.close()
+
+        except psycopg2.Error:
+            return psycopg2.Error
+        finally:
+            if conn is not None:
+                conn.close()
+            return "sucesso"
 
     def consultaExisteBD(self, stringSQL, valores):
         # iniciar conexão vazio

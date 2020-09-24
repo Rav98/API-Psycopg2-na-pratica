@@ -137,6 +137,12 @@ class PedidoM():
         else:
             return None
 
+    def atualizaordemvenda(self, dadospedido):
+        string_SQL_pedido = """UPDATE northwind.orders SET %s = %s WHERE orderid = %s AND customerid = %s AND employeeid = %s;"""
+        parametros = (dadospedido[3], dadospedido[4], dadospedido[0], dadospedido[1], dadospedido[2])
+        status = config.atualizaordemvendaBD(config, string_SQL_pedido, parametros)
+        return status
+
 
 class valida():
     def validacustomer(self, customerid):
@@ -152,3 +158,4 @@ class valida():
         if(status == 0):
             print("Valor não existe no banco. Digite um valor válido.")
         return status
+

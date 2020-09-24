@@ -47,7 +47,9 @@ class Controle:
                 prod = PedidoM.consultavenda(self, id)
                 self.view.imprimevenda(prod)
             if opcao == 9:
-                print("aaa")
+                l = self.view.coletadadosvendaupdate()
+                status = PedidoM.atualizaordemvenda(self,l)    
+                self.view.imprimeStatus(status)
             if opcao == 10:
                 id = self.view.recebecodvenda()
                 status = PedidoM.deletavenda(self, id)

@@ -19,7 +19,7 @@ class View():
         print("Digite 6 para CADASTRAR VENDA")
         print("Digite 7 para ALTERAR A QUANTIDADE DE PRODUTOS VENDIDOS")
         print("Digite 8 para CONSULTAR VENDAS")
-        print("Digite 9 para UPDATE VENDA")
+        print("Digite 9 para ALTERAR ORDEM DA VENDA")
         print("Digite 10 para APAGAR VENDA")
         print("Digite 0 para SAIR")
         opcao = int(input("Opção escolhida: "))
@@ -185,3 +185,44 @@ class View():
             print("COMANDO EXECUTADO NO BANCO DE DADOS!!!")
         else:
             print(status)
+
+    def coletadadosvendaupdate(self):
+        atributos = {1: 'orderdate', 2: 'requireddate', 3: 'shippeddate', 4: 'freight',
+                     5: 'shipname', 6: ' shipaddress', 7: 'shipcity', 8: 'shipregion', 9: 'shipcountry', 10: 'shippostalcode', 11: 'shipperid'}
+
+        print("Digite: ")
+        print("Digite 1 para alterar a  data do pedido (AAAA-MM-DD): ")
+        print("Digite 2 para alterar data do fechamento do pedido (AAAA-MM-DD): ")
+        print("Digite 3 para alterar data do envio do pedido (AAAA-MM-DD): ")
+        print("Digite 4 para alterar valor do frete: ")
+        print("Digite 5 para alterar local do envio: ")
+        print("Digite 6 para alterar o endereço: ")
+        print("Digite 7 para alterar a cidade do envio: ")
+        print("Digite 8 para alterar a região do envio: ")
+        print("Digite 9 para alterar o pais: ")
+        print("Digite 10 para alterar o CEP: ")
+        print("Digite 11 para alterar o ID do endereço de envio: ")
+
+        campo = int(input())
+        valor_ordem=input("Digite o ID da ordem da venda: ")
+        # Validação customerid
+        valorcustomerid = 0
+        while valorcustomerid == 0:
+            customerid = input(
+                "Digite o identificador do cliente (identificador é string de cliente que já existe): ")
+            valorcustomerid = valida.validacustomer(self, customerid)
+        # Validação employeeid
+        valorfunc = 0
+        while valorfunc == 0:
+            enployerid = input("Digite o identificador do funcionario: ")
+            valorfunc = valida.validaemployee(self, enployerid)
+
+        valor = input("Digite o novo valor para o atributo: ")
+        if(campo == 1 or campo == 2 or campo == 3):
+            year, month, day = map(int, valor.split('-'))
+            valor = datetime(year, month, day)
+
+        elif(campo == 4):
+            Decimal(valor)
+
+        return(valor_ordem, customerid, enployerid, atributos[campo], valor)
