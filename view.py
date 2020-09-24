@@ -224,5 +224,5 @@ class View():
 
         elif(campo == 4):
             Decimal(valor)
-
+            
         return(valor_ordem, customerid, enployerid, atributos[campo], valor)
