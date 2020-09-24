@@ -43,13 +43,15 @@ class Controle:
                 status = PedidoM.alteravenda(self, l)
                 self.view.imprimeStatus(status)
             if opcao == 8:
-                id = self.view.recebecodproduto()
-                prod = ProdutoM.consultavenda(self, id)
-                self.view.imprimeproduto(prod)
+                id = self.view.recebecodvenda()
+                prod = PedidoM.consultavenda(self, id)
+                self.view.imprimevenda(prod)
             if opcao == 9:
-                aaa
-            if opcao = 10:
-                aaa
+                print("aaa")
+            if opcao == 10:
+                id = self.view.recebecodvenda()
+                status = PedidoM.deletavenda(self, id)
+                self.view.imprimeStatus(status)
             opcao = self.view.menu()
 
     def __init__(self):

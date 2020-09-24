@@ -56,6 +56,39 @@ class ProdutoM():
 
 
 class PedidoM():
+    def __init__(self, orderid, customerid, employeeid, orderdate, requireddate, shippeddate, freight, shipname, shipaddress, shipcity, shipregion, shippostalcode, shipcountry, shipperid):
+        self.orderid = orderid
+        self.customerid = customerid
+        self.employeeid = employeeid
+        self.orderdate = orderdate
+        self.requiredate = requireddate
+        self.shippeddate = shippeddate
+        self.freight = freight
+        self.shipname = shipname
+        self.shipaddress = shipaddress
+        self.shipcity = shipcity
+        self.shipregion = shipregion
+        self.shippostalcode = shippostalcode
+        self.shipcountry = shipcountry
+        self.shipperid = shipperid
+
+    def criaVenda(self, listaValores):
+        venda = PedidoM(int(listaValores[0]),
+                            str(listaValores[1]),
+                            int(listaValores[2]),
+                            str(listaValores[3]),
+                            str(listaValores[4]),
+                            str(listaValores[5]),
+                            Decimal(listaValores[6]),
+                            str(listaValores[7]),
+                            str(listaValores[8]),
+                            str(listaValores[9]),
+                            str(listaValores[10]),
+                            str(listaValores[11]),
+                            str(listaValores[12]),
+                            str(listaValores[13]))
+        return venda
+
     def consultarelatorio(self, id):
         if (id == -1):
             string_sql = """SELECT * FROM relatorio"""
@@ -79,6 +112,31 @@ class PedidoM():
         parametros = (dadospedido[2], dadospedido[0], dadospedido[1])
         status = config.alteraBD(config, string_sql, parametros)
         return status
+
+    def consultavenda(self, id):
+        string_sql = 'SELECT * FROM northwind.orders WHERE orderid = %s;'
+        registros = config.consultaBD(config, string_sql, [id])
+        if(len(registros[1]) != 0):
+            vend = PedidoM.criaVenda(self, registros[1][0])
+            return vend
+        else:
+            return None
+    
+    def deletavenda(self, id):
+        print("\n", id)
+        string_sql = 'DELETE FROM northwind.orders WHERE orderid = %s;'
+        status = config.alteraBD(config, string_sql, [id])
+        print("\n", status)
+        if status == 'sucesso':
+            string_sql_1 = 'SELECT productid FROM northwind.orders WHERE orderid = %s'
+            aux = config.consultaBD(config, string_sql_1, [id])
+            string_sql = 'DELETE FROM northwind.order_details WHERE productid = %s AND orderid = %s;' 
+            parametros = (aux[1], [id])           
+            status = config.alteraBD(config, string_sql, parametros)
+            return status
+        else:
+            return None
+
 
 class valida():
     def validacustomer(self, customerid):

@@ -65,6 +65,10 @@ class View():
         productid = int(input("Digite o identificador do produto: "))
         return productid
 
+    def recebecodvenda(self):
+        vendaid = int(input("Digite o identificador da venda: "))
+        return vendaid 
+
     def recebecodpedido(self):
         pedidoid = int(input("Digite o identificador do pedido: "))
         return pedidoid
@@ -82,6 +86,25 @@ class View():
             print("Disponiveis para venda:", prod.vendas)
             print("Nivel:", prod.nivel)
             print("Descontinuado:", prod.descontinuado)
+        else:
+            print("Consulta vazia")
+
+    def imprimevenda(self, venda):
+        if(venda is not None):
+            print("ID do pedido: ", venda.orderid)
+            print("Cliente: ", venda.customerid)
+            print("Funcionario: ", venda.employeeid)
+            print("Data do pedido: ", venda.orderdate)
+            print("Data do fechamento: ", venda.requiredate)
+            print("Data do envio: ", venda.shippeddate)
+            print("Valor do frete: ", venda.freight)
+            print("Local de envio: ", venda.shipname)
+            print("Endereço: ", venda.shipaddress)
+            print("Cidade: ", venda.shipcity)
+            print("Regiao: ", venda.shipregion)
+            print("País: ", venda.shipcountry)
+            print("CEP: ", venda.shippostalcode)
+            print("ID do endereço de envio: ", venda.shipperid)
         else:
             print("Consulta vazia")
 
