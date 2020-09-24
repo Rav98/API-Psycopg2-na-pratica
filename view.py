@@ -84,7 +84,9 @@ class View():
     def imprimeRelatorio(self, registros):
         if(registros is not None):
             colunas = registros[0]
+            print("\n\nColuna: ", colunas)
             dados = registros[1]
+            print("\n\nDados: " )
             print("A consulta retornou", len(dados), "registros")
             for i in dados:
                 print(colunas[0], ": ", i[0])
@@ -92,7 +94,6 @@ class View():
                 print(colunas[2], ": ", i[2])
                 print(colunas[3], ": ", i[3])
                 print(colunas[4], ": ", i[4])
-                print(colunas[5], ": ", i[5])
         else:
             print("A consulta não retornou dados")
 

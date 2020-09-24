@@ -58,14 +58,15 @@ class ProdutoM():
 class PedidoM():
     def consultarelatorio(self, id):
         if (id == -1):
-            string_sql = """SELECT * FROM northwind.relatorio"""
+            string_sql = """SELECT * FROM relatorio"""
             registros = config.consultaBD(config, string_sql, [[]])
         else:
-            string_sql = """SELECT * FROM northwind.relatorios WHERE numpedido = %s"""
+            string_sql = """SELECT * FROM relatorio WHERE orderid = %s"""
+            #string_sql = """SELECT northwind.gerarelatorio(%s)"""
             registros = config.consultaBD(config, string_sql, [id])
-            print(registros[1])
-        #if(len(registros[1]) == 0):
-            #registros = None
+            print(registros[0])
+        if(len(registros[1]) == 0):
+            registros = None
         return registros
 
     def cadastravendas(self, dadospedido, listaprodutos):
