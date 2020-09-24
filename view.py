@@ -196,7 +196,7 @@ class View():
         else:
             print(status)
 
-    def coletadadosvendaupdate(self):
+    def coletadadosordemupdate(self):
         atributos = {1: 'orderdate', 2: 'requireddate', 3: 'shippeddate', 4: 'freight',
                      5: 'shipname', 6: ' shipaddress', 7: 'shipcity', 8: 'shipregion', 9: 'shipcountry', 10: 'shippostalcode', 11: 'shipperid', 12:'customerid', 13:'employeeid'}
 
