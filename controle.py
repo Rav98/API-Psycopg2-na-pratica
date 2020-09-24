@@ -41,13 +41,13 @@ class Controle:
                 l = PedidoM.consultarelatorio(self, id)
                 self.view.imprimeRelatorio(l)
             if opcao == 6:
+                l = self.view.coletadadospedidoupdate()
+                status = PedidoM.alteravenda(self, l)
+                self.view.imprimeStatus(status)
+            if opcao == 7:
                 l = self.view.coletadadospedido()
                 p = self.view.coletaprodutospedido(l[0])
                 status = PedidoM.cadastraVenda(self, l, p)
-                self.view.imprimeStatus(status)
-            if opcao == 7:
-                l = self.view.coletadadospedidoupdate()
-                status = PedidoM.alteravenda(self, l)
                 self.view.imprimeStatus(status)
             if opcao == 8:
                 id = self.view.recebecodvenda()
@@ -55,7 +55,7 @@ class Controle:
                 self.view.imprimevenda(prod)
             if opcao == 9:
                 l = self.view.coletadadosordemupdate()
-                status = PedidoM.atualizaordemvenda(self,l)    
+                status = PedidoM.atualizaordemvenda(self, l)
                 self.view.imprimeStatus(status)
             if opcao == 10:
                 id = self.view.recebecodvenda()

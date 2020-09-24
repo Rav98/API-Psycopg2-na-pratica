@@ -54,8 +54,6 @@ class ProdutoM():
             return None
 
     def atualizaproduto(self, l):
-        print(l[0], l[1], l[2])
-
         string_sql = """UPDATE northwind.products SET %s = %s WHERE productid = %s"""
         parametros = ((AsIs(l[1])), int(l[2]), (AsIs(l[0])))
         status = config.alteraBD(config, string_sql, parametros)
@@ -81,19 +79,19 @@ class PedidoM():
 
     def criaVenda(self, listaValores):
         venda = PedidoM(int(listaValores[0]),
-                            str(listaValores[1]),
-                            int(listaValores[2]),
-                            str(listaValores[3]),
-                            str(listaValores[4]),
-                            str(listaValores[5]),
-                            Decimal(listaValores[6]),
-                            str(listaValores[7]),
-                            str(listaValores[8]),
-                            str(listaValores[9]),
-                            str(listaValores[10]),
-                            str(listaValores[11]),
-                            str(listaValores[12]),
-                            str(listaValores[13]))
+                        str(listaValores[1]),
+                        int(listaValores[2]),
+                        str(listaValores[3]),
+                        str(listaValores[4]),
+                        str(listaValores[5]),
+                        Decimal(listaValores[6]),
+                        str(listaValores[7]),
+                        str(listaValores[8]),
+                        str(listaValores[9]),
+                        str(listaValores[10]),
+                        str(listaValores[11]),
+                        str(listaValores[12]),
+                        str(listaValores[13]))
         return venda
 
     def consultarelatorio(self, id):
@@ -111,7 +109,8 @@ class PedidoM():
     def cadastraVenda(self, dadospedido, listaprodutos):
         string_SQL_pedido = """INSERT INTO northwind.orders(orderid, customerid, employeeid, orderdate, requireddate, shippeddate, freight, shipname, shipaddress, shipcity, shipregion, shippostalcode, shipcountry, shipperid) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
         string_SQL_produto = """INSERT INTO northwind.order_details(orderid, productid, unitprice, quantity, discount) VALUES (%s, %s, %s, %s, %s);"""
-        status = config.cadastravendaBD(config, string_SQL_pedido, string_SQL_produto, dadospedido, listaprodutos)
+        status = config.cadastravendaBD(
+            config, string_SQL_pedido, string_SQL_produto, dadospedido, listaprodutos)
         return status
 
     def alteravenda(self, dadospedido):
@@ -128,7 +127,7 @@ class PedidoM():
             return vend
         else:
             return None
-    
+
     def deletavenda(self, id):
         print("\n", id)
         string_sql = 'DELETE FROM northwind.order_details WHERE orderid = %s;'
@@ -136,19 +135,23 @@ class PedidoM():
         status = config.alteraBD(config, string_sql, [id])
         print("\n", status)
         if status == 'sucesso':
-            string_sql_1 = 'DELETE FROM northwind.orders WHERE orderid = %s;' 
+            string_sql_1 = 'DELETE FROM northwind.orders WHERE orderid = %s;'
             status = config.alteraBD(config, string_sql_1, [id])
             return status
         else:
             return None
 
     def atualizaordemvenda(self, dadospedido):
-        string_SQL_venda ="""UPDATE northwind.orders SET %s = '%s' WHERE orderid = %s"""
+        string_SQL_venda = """UPDATE northwind.orders SET %s = '%s' WHERE orderid = %s"""
         print("\n\n", dadospedido[0], dadospedido[1], dadospedido[2])
-        print("\n\nUPDATE northwind.orders SET", dadospedido[1], " = ", dadospedido[2], "WHERE orderid = ", dadospedido[0])
-        parametros = ((AsIs(dadospedido[1])), AsIs(dadospedido[2]), int(dadospedido[0]))
-        status = config.atualizaordemvendaBD(config, string_SQL_venda, parametros)
+        print("\n\nUPDATE northwind.orders SET",
+              dadospedido[1], " = ", dadospedido[2], "WHERE orderid = ", dadospedido[0])
+        parametros = ((AsIs(dadospedido[1])), AsIs(
+            dadospedido[2]), int(dadospedido[0]))
+        status = config.atualizaordemvendaBD(
+            config, string_SQL_venda, parametros)
         return status
+
 
 class valida():
     def validacustomer(self, customerid):
@@ -166,7 +169,7 @@ class valida():
         return status
 
     def verificaordem(self, ordem):
-        string_SQL ="""SELECT * FROM northwind.orders WHERE orderid = %s;"""
+        string_SQL = """SELECT * FROM northwind.orders WHERE orderid = %s;"""
         status = config.consultaExisteBD(config, string_SQL, [ordem])
         if(status == 0):
             print("Valor não existe no banco. Digite um valor válido.")

@@ -9,6 +9,7 @@ from decimal import *
 import psycopg2
 from psycopg2.extensions import AsIs
 
+
 class Produto():
     def __init__(self, productid, productname, supplierid, categoryid, quantityperunit, unitprice, unitsinstock, unitsonorder, reorderlevel, discontinued):
         self.id = productid
@@ -22,17 +23,16 @@ class Produto():
         self.nivel = reorderlevel
         self.descontinuado = discontinued
 
-
     def criaProduto(self, listaValores):
         return Produto(int(listaValores[0]), str(listaValores[1]), int(listaValores[2]), int(listaValores[3]),
-             str(listaValores[4]), Decimal(listaValores[5]),
-             int(listaValores[6]), int(listaValores[7]), int(listaValores[8]), str(listaValores[9]))
-
+                       str(listaValores[4]), Decimal(listaValores[5]),
+                       int(listaValores[6]), int(listaValores[7]), int(listaValores[8]), str(listaValores[9]))
 
     def cadastraProduto(self, produto):
         string_sql = 'INSERT INTO northwind.products (productid, productname, supplierid, categoryid, quantityperunit, unitprice, ' \
                      'unitsinstock, unitsonorder, reorderlevel, discontinued) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
-        record_to_insert = (produto.id, produto.nome, produto.fornecedor, produto.categoria, produto.quantidadeEmbalagem, produto.precoUnitario, produto.estoque, produto.vendas, produto.nivel, produto.descontinuado)
+        record_to_insert = (produto.id, produto.nome, produto.fornecedor, produto.categoria, produto.quantidadeEmbalagem,
+                            produto.precoUnitario, produto.estoque, produto.vendas, produto.nivel, produto.descontinuado)
         conn_string = "host='localhost' dbname='Northwind' user='postgres' password='root'"
 
         # iniciar a inserção do registro
@@ -106,7 +106,7 @@ class Produto():
             # Executar a consulta
             sessao.execute(string_sql, [id])
 
-            #Armazenar os resultados
+            # Armazenar os resultados
             registros = sessao.fetchall()
 
             # Comitar para fechar a transação
@@ -217,7 +217,8 @@ class Pedido():
             # Executar a inserção dos produtos na memória RAM - TABELA ORDERDETAILS
             for i in listaprodutos:
                 string_SQL_produto = """INSERT INTO northwind.order_details(orderid, productid, unitprice, quantity, discount) VALUES (%s, %s, %s, %s, %s);"""
-                sessao.execute(string_SQL_produto, (i.idPedido, i.idProduto, i.preco, i.quantidade, i.desconto))
+                sessao.execute(string_SQL_produto, (i.idPedido,
+                                                    i.idProduto, i.preco, i.quantidade, i.desconto))
 
             # Comitar a inserção - fechar a transação
             conexao.commit()
@@ -225,13 +226,13 @@ class Pedido():
             # Encerrar a sessão
             sessao.close()
 
-
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
         finally:
             print("A venda foi cadastrada com sucesso")
             if conn is not None:
                 conn.close()
+
 
 class OrderDetails():
     def __init__(self, orderid, productid, unitprice, quantity, discount):
@@ -243,7 +244,7 @@ class OrderDetails():
 
     def alteraVenda(self, dadospedido):
         string_SQL = """UPDATE northwind.order_details SET quantity = %s WHERE orderid = %s AND productid = %s"""
-        record_to_insert = (dadospedido[2],dadospedido[0], dadospedido[1])
+        record_to_insert = (dadospedido[2], dadospedido[0], dadospedido[1])
         conn_string = "host='localhost' dbname='Northwind' user='postgres' password='root'"
         # iniciar a inserção do registro
         conn = None

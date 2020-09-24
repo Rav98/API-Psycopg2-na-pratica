@@ -24,9 +24,9 @@ class View():
         print("|    -> Digite 3 para CONSULTAR PRODUTO                          |")
         print("|    -> Digite 4 para ALTERAR PRODUTO                            |")
         print("|    -> Digite 5 para CONSULTAR RELATORIO DE PRODUTO             |")
+        print("|    -> Digite 6 para ALTERAR A QUANTIDADE DE PRODUTOS VENDIDOS  |")
         print("| -> Menu Ordem                                                  |")
-        print("|    -> Digite 6 para CADASTRAR ORDEM                            |")
-        print("|    -> Digite 7 para ALTERAR A QUANTIDADE DE PRODUTOS VENDIDOS  |")
+        print("|    -> Digite 7 para CADASTRAR ORDEM                            |")
         print("|    -> Digite 8 para CONSULTAR ORDEM                            |")
         print("|    -> Digite 9 para ALTERAR ORDEM                              |")
         print("|    -> Digite 10 para APAGAR ORDEM                              |")
@@ -40,10 +40,12 @@ class View():
         productname = input("Digite o nome do produto: ")
         supplierid = input("Digite o identificador do fornecedor: ")
         categoryid = input("Digite o ID da categoria: ")
-        quantityperunit = input("Digite a quantidade de produto por embalagem: ")
+        quantityperunit = input(
+            "Digite a quantidade de produto por embalagem: ")
         unitprice = input("Digite o preço do produto: ")
         unitsinstock = input("Digite a quantidade de unidades no estoque: ")
-        unitsonorder = input("Digite a quantidade de unidades disponiveis para venda: ")
+        unitsonorder = input(
+            "Digite a quantidade de unidades disponiveis para venda: ")
         reorderlevel = input("Digite nivel do produto: ")
         discontinued = input("O produto está descontinuado? ")
         valores = [productid, productname, supplierid, categoryid, quantityperunit,
@@ -77,7 +79,7 @@ class View():
 
     def recebecodvenda(self):
         vendaid = int(input("Digite o identificador da venda: "))
-        return vendaid 
+        return vendaid
 
     def recebecodpedido(self):
         pedidoid = int(input("Digite o identificador do pedido: "))
@@ -123,7 +125,7 @@ class View():
             colunas = registros[0]
             print("\n\nColuna: ", colunas)
             dados = registros[1]
-            print("\n\nDados: " )
+            print("\n\nDados: ")
             print("A consulta retornou", len(dados), "registros")
             for i in dados:
                 print(colunas[0], ": ", i[0])
@@ -137,20 +139,22 @@ class View():
     def coletadadospedido(self):
         orderid = input("\nDigite o identificador do pedido: ")
 
-        #Validação customerid
+        # Validação customerid
         valorcustomerid = 0
         while valorcustomerid == 0:
-            customerid = input("Digite o identificador do cliente (identificador é string de cliente que já existe): ")
+            customerid = input(
+                "Digite o identificador do cliente (identificador é string de cliente que já existe): ")
             valorcustomerid = valida.validacustomer(self, customerid)
-        
-        #Validação employeeid
+
+        # Validação employeeid
         valorfunc = 0
         while valorfunc == 0:
             enployerid = input("Digite o identificador do funcionario: ")
             valorfunc = valida.validaemployee(self, enployerid)
-        
+
         orderdate = input("Digite a data do pedido (AAAA-MM-DD): ")
-        requireddate = input("Digite a data do fechamento do pedido (AAAA-MM-DD): ")
+        requireddate = input(
+            "Digite a data do fechamento do pedido (AAAA-MM-DD): ")
         shippeddate = input("Digite a data do envio do pedido (AAAA-MM-DD): ")
         freight = input("Digite o valor do frete: ")
         shipname = input("Digite o local do envio: ")
@@ -167,7 +171,7 @@ class View():
         year, month, day = map(int, shippeddate.split('-'))
         shippeddate = datetime(year, month, day)
         pedido = (int(orderid), customerid, int(enployerid), orderdate, requireddate, shippeddate, Decimal(freight),
-            shipname, shipaddress, shipcity, shipregion, shipcountry, shippostalcode, int(shipperid))
+                  shipname, shipaddress, shipcity, shipregion, shipcountry, shippostalcode, int(shipperid))
         return pedido
 
     def coletaprodutospedido(self, orderid):
@@ -179,9 +183,11 @@ class View():
             unitprice = input("Digite valor do produto: ")
             quntity = input("Digite a quantidade comprada: ")
             discount = input("Digite o valor do desconto: ")
-            produtoPedido = OrderDetails(int(orderid), int(productid), Decimal(unitprice), int(quntity), Decimal(discount))
+            produtoPedido = OrderDetails(int(orderid), int(productid), Decimal(
+                unitprice), int(quntity), Decimal(discount))
             listaProdutos.append(produtoPedido)
-            i = int(input("Deseja continuar cadastrar produtos para para esse pedido? (-1 para não | 1 para sim): "))
+            i = int(input(
+                "Deseja continuar cadastrar produtos para para esse pedido? (-1 para não | 1 para sim): "))
         return listaProdutos
 
     def coletadadospedidoupdate(self):
@@ -198,7 +204,7 @@ class View():
 
     def coletadadosordemupdate(self):
         atributos = {1: 'orderdate', 2: 'requireddate', 3: 'shippeddate', 4: 'freight',
-                     5: 'shipname', 6: ' shipaddress', 7: 'shipcity', 8: 'shipregion', 9: 'shipcountry', 10: 'shippostalcode', 11: 'shipperid', 12:'customerid', 13:'employeeid'}
+                     5: 'shipname', 6: ' shipaddress', 7: 'shipcity', 8: 'shipregion', 9: 'shipcountry', 10: 'shippostalcode', 11: 'shipperid', 12: 'customerid', 13: 'employeeid'}
 
         print("\nDigite:")
         print("Digite 1 para alterar a  data do pedido (AAAA-MM-DD)")
@@ -220,21 +226,23 @@ class View():
         # Verificar se a ordem existe
         verificaordem = 0
         while verificaordem == 0:
-            valor_ordem=input("Digite o ID da ordem da venda: ")
+            valor_ordem = input("Digite o ID da ordem da venda: ")
             verificaordem = valida.verificaordem(self, valor_ordem)
 
         # Para alterar o identificador do cliente, é necessario que ele exista. Portanto, fazemos a validacao:
         if(campo == 12):
             valorcustomerid = 0
             while valorcustomerid == 0:
-                customerid = input("Digite o novo identificador do cliente (identificador é string de cliente que já existe): ")
+                customerid = input(
+                    "Digite o novo identificador do cliente (identificador é string de cliente que já existe): ")
                 valorcustomerid = valida.validacustomer(self, customerid)
 
         # Para alterar o identificador do funcionario, é necessario que ele exista. Portanto, fazemos a validacao:
         elif(campo == 13):
             valorfunc = 0
             while valorfunc == 0:
-                enployerid = input("Digite o novo identificador do funcionario: ")
+                enployerid = input(
+                    "Digite o novo identificador do funcionario: ")
                 valorfunc = valida.validaemployee(self, enployerid)
         else:
             valor = input("Digite o novo valor para o atributo: ")
@@ -243,6 +251,6 @@ class View():
                 valor = datetime(year, month, day)
 
             elif(campo == 4):
-                Decimal(valor)        
+                Decimal(valor)
 
         return (valor_ordem, atributos[campo], valor)

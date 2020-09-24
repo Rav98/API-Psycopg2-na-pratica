@@ -13,7 +13,7 @@ class config:
         self.dadosconexao = dadosconexao
 
     def setParametros(self):
-        self.dadosconexao = "host='localhost' port='5432' dbname='Northwind' user='postgres' password='123qaz@'"
+        self.dadosconexao = "host='localhost' port='5432' dbname='northwind' user='postgres' password='bd123'"
         return self
 
     def alteraBD(self, stringSQL, valores):
