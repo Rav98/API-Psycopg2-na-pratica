@@ -7,7 +7,7 @@ class Controle:
     def inicio(self):
         opcao = self.view.inicio()
 
-        while opcao != 8:
+        while opcao != 0:
             if opcao == 1:
                 l = self.view.coletadadosproduto()
                 prod = ProdutoM.criaProduto(self, l)
@@ -42,6 +42,14 @@ class Controle:
                 l = self.view.coletadadospedidoupdate()
                 status = PedidoM.alteravenda(self, l)
                 self.view.imprimeStatus(status)
+            if opcao == 8:
+                id = self.view.recebecodproduto()
+                prod = ProdutoM.consultavenda(self, id)
+                self.view.imprimeproduto(prod)
+            if opcao == 9:
+                aaa
+            if opcao = 10:
+                aaa
             opcao = self.view.menu()
 
     def __init__(self):

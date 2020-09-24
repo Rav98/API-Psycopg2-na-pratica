@@ -18,8 +18,9 @@ class View():
         print("Digite 5 para CONSULTAR RELATORIO DE PRODUTO")
         print("Digite 6 para CADASTRAR VENDA")
         print("Digite 7 para ALTERAR A QUANTIDADE DE PRODUTOS VENDIDOS")
-        print("Digite 8 para UPDATE VENDA")
-        print("Digite 9 para APAGAR VENDA")
+        print("Digite 8 para CONSULTAR VENDAS")
+        print("Digite 9 para UPDATE VENDA")
+        print("Digite 10 para APAGAR VENDA")
         print("Digite 0 para SAIR")
         opcao = int(input("Opção escolhida: "))
         return opcao
