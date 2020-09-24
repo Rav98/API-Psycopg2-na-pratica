@@ -1,3 +1,10 @@
+'''
+COM232 - BANCO DE DADOS 2
+
+2018005379 - Flávio Mota Gomes
+2018000980 - Rafael Antunes Vieira
+'''
+
 import psycopg2
 from decimal import *
 from config import config
@@ -136,11 +143,12 @@ class PedidoM():
             return None
 
     def atualizaordemvenda(self, dadospedido):
-        string_SQL_pedido = """UPDATE northwind.orders SET %s = %s WHERE orderid = %s AND customerid = %s AND employeeid = %s;"""
-        parametros = (dadospedido[3], dadospedido[4], dadospedido[0], dadospedido[1], dadospedido[2])
-        status = config.atualizaordemvendaBD(config, string_SQL_pedido, parametros)
+        string_SQL_venda ="""UPDATE northwind.orders SET %s = '%s' WHERE orderid = %s"""
+        print("\n\n", dadospedido[0], dadospedido[1], dadospedido[2])
+        print("\n\nUPDATE northwind.orders SET", dadospedido[1], " = ", dadospedido[2], "WHERE orderid = ", dadospedido[0])
+        parametros = ((AsIs(dadospedido[1])), AsIs(dadospedido[2]), int(dadospedido[0]))
+        status = config.atualizaordemvendaBD(config, string_SQL_venda, parametros)
         return status
-
 
 class valida():
     def validacustomer(self, customerid):
@@ -157,3 +165,9 @@ class valida():
             print("Valor não existe no banco. Digite um valor válido.")
         return status
 
+    def verificaordem(self, ordem):
+        string_SQL ="""SELECT * FROM northwind.orders WHERE orderid = %s;"""
+        status = config.consultaExisteBD(config, string_SQL, [ordem])
+        if(status == 0):
+            print("Valor não existe no banco. Digite um valor válido.")
+        return status

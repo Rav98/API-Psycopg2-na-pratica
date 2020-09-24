@@ -1,3 +1,10 @@
+'''
+COM232 - BANCO DE DADOS 2
+
+2018005379 - Flávio Mota Gomes
+2018000980 - Rafael Antunes Vieira
+'''
+
 from decimal import *
 from modelM import *
 from model import *
@@ -10,18 +17,21 @@ class View():
         return self.menu()
 
     def menu(self):
-        print("ATIVIDADE PRATICA - MENU")
-        print("Digite 1 para CADASTRAR PRODUTO")
-        print("Digite 2 para DELETAR PRODUTO")
-        print("Digite 3 para CONSULTAR PRODUTO")
-        print("Digite 4 para ALTERAR PRODUTO")
-        print("Digite 5 para CONSULTAR RELATORIO DE PRODUTO")
-        print("Digite 6 para CADASTRAR VENDA")
-        print("Digite 7 para ALTERAR A QUANTIDADE DE PRODUTOS VENDIDOS")
-        print("Digite 8 para CONSULTAR VENDAS")
-        print("Digite 9 para ALTERAR ORDEM DA VENDA")
-        print("Digite 10 para APAGAR VENDA")
-        print("Digite 0 para SAIR")
+        print("=====================ATIVIDADE PRATICA - MENU=====================")
+        print("| -> Menu Produto                                                |")
+        print("|    -> Digite 1 para CADASTRAR PRODUTO                          |")
+        print("|    -> Digite 2 para DELETAR PRODUTO                            |")
+        print("|    -> Digite 3 para CONSULTAR PRODUTO                          |")
+        print("|    -> Digite 4 para ALTERAR PRODUTO                            |")
+        print("|    -> Digite 5 para CONSULTAR RELATORIO DE PRODUTO             |")
+        print("| -> Menu Ordem                                                  |")
+        print("|    -> Digite 6 para CADASTRAR ORDEM                            |")
+        print("|    -> Digite 7 para ALTERAR A QUANTIDADE DE PRODUTOS VENDIDOS  |")
+        print("|    -> Digite 8 para CONSULTAR ORDEM                            |")
+        print("|    -> Digite 9 para ALTERAR ORDEM                              |")
+        print("|    -> Digite 10 para APAGAR ORDEM                              |")
+        print("| -> Digite 0 para SAIR                                          |")
+        print("==================================================================")
         opcao = int(input("Opção escolhida: "))
         return opcao
 
@@ -43,7 +53,7 @@ class View():
     def coletadadosprodutoupdate(self, id):
         atributos = {1: 'productname', 2: 'supplierid', 3: 'categoryid', 4: 'quantityperunit',
                      5: 'unitprice', 6: ' unitsinslock', 7: 'unitsonorder', 8: 'reorderlevel', 9: 'discontinued'}
-        print("Digite:")
+        print("\nDigite:")
         print("1 para nome do produto")
         print("2 para identificador do fornecedor")
         print("3 para identificador da categoria")
@@ -54,7 +64,7 @@ class View():
         print("8 para nivel do produto")
         print("9 para descontinuado\n")
         campo = int(input())
-        valor = input("Digite o novo valor para o atributo: ")
+        valor = input("\nDigite o novo valor para o atributo: ")
         if((campo == 2) or (campo == 3) or (campo == 6) or (campo == 7) or (campo == 8)):
             int(valor)
         elif(campo == 4):
@@ -76,22 +86,22 @@ class View():
     def imprimeproduto(self, prod):
         if(prod is not None):
             print(prod)
-            print("ID: ", prod.id)
+            print("\nID: ", prod.id)
             print("Nome: ", prod.nome)
             print("Fornecedor: ", prod.fornecedor)
             print("Categoria: ", prod.categoria)
             print("Quantidade & embalagem: ", prod.quantidadeEmbalagem)
-            print("Preço Unitario :", prod.precoUnitario)
+            print("Preço Unitario: ", prod.precoUnitario)
             print("Estoque: ", prod.estoque)
-            print("Disponiveis para venda:", prod.vendas)
-            print("Nivel:", prod.nivel)
-            print("Descontinuado:", prod.descontinuado)
+            print("Disponiveis para venda: ", prod.vendas)
+            print("Nivel: ", prod.nivel)
+            print("Descontinuado: ", prod.descontinuado)
         else:
             print("Consulta vazia")
 
     def imprimevenda(self, venda):
         if(venda is not None):
-            print("ID do pedido: ", venda.orderid)
+            print("\nID do pedido: ", venda.orderid)
             print("Cliente: ", venda.customerid)
             print("Funcionario: ", venda.employeeid)
             print("Data do pedido: ", venda.orderdate)
@@ -125,7 +135,7 @@ class View():
             print("A consulta não retornou dados")
 
     def coletadadospedido(self):
-        orderid = input("Digite o identificador do pedido: ")
+        orderid = input("\nDigite o identificador do pedido: ")
 
         #Validação customerid
         valorcustomerid = 0
@@ -164,7 +174,7 @@ class View():
         i = 1
         listaProdutos = []
         while i != -1:
-            print("Informe os produtos para o pedido ", orderid, ": ")
+            print("\nInforme os produtos para o pedido ", orderid, ": ")
             productid = input("Digite o ID do produto: ")
             unitprice = input("Digite valor do produto: ")
             quntity = input("Digite a quantidade comprada: ")
@@ -182,47 +192,57 @@ class View():
 
     def imprimeStatus(self, status):
         if(status == "sucesso"):
-            print("COMANDO EXECUTADO NO BANCO DE DADOS!!!")
+            print("\nCOMANDO EXECUTADO NO BANCO DE DADOS!!!")
         else:
             print(status)
 
     def coletadadosvendaupdate(self):
         atributos = {1: 'orderdate', 2: 'requireddate', 3: 'shippeddate', 4: 'freight',
-                     5: 'shipname', 6: ' shipaddress', 7: 'shipcity', 8: 'shipregion', 9: 'shipcountry', 10: 'shippostalcode', 11: 'shipperid'}
+                     5: 'shipname', 6: ' shipaddress', 7: 'shipcity', 8: 'shipregion', 9: 'shipcountry', 10: 'shippostalcode', 11: 'shipperid', 12:'customerid', 13:'employeeid'}
 
-        print("Digite: ")
-        print("Digite 1 para alterar a  data do pedido (AAAA-MM-DD): ")
-        print("Digite 2 para alterar data do fechamento do pedido (AAAA-MM-DD): ")
-        print("Digite 3 para alterar data do envio do pedido (AAAA-MM-DD): ")
-        print("Digite 4 para alterar valor do frete: ")
-        print("Digite 5 para alterar local do envio: ")
-        print("Digite 6 para alterar o endereço: ")
-        print("Digite 7 para alterar a cidade do envio: ")
-        print("Digite 8 para alterar a região do envio: ")
-        print("Digite 9 para alterar o pais: ")
-        print("Digite 10 para alterar o CEP: ")
-        print("Digite 11 para alterar o ID do endereço de envio: ")
+        print("\nDigite:")
+        print("Digite 1 para alterar a  data do pedido (AAAA-MM-DD)")
+        print("Digite 2 para alterar data do fechamento do pedido (AAAA-MM-DD)")
+        print("Digite 3 para alterar data do envio do pedido (AAAA-MM-DD)")
+        print("Digite 4 para alterar valor do frete")
+        print("Digite 5 para alterar local do envio")
+        print("Digite 6 para alterar o endereço")
+        print("Digite 7 para alterar a cidade do envio")
+        print("Digite 8 para alterar a região do envio")
+        print("Digite 9 para alterar o pais")
+        print("Digite 10 para alterar o CEP")
+        print("Digite 11 para alterar o ID do endereço de envio")
+        print("Digite 12 para alterar o consumidor")
+        print("Digite 13 para alterar o funcionario")
 
         campo = int(input())
-        valor_ordem=input("Digite o ID da ordem da venda: ")
-        # Validação customerid
-        valorcustomerid = 0
-        while valorcustomerid == 0:
-            customerid = input(
-                "Digite o identificador do cliente (identificador é string de cliente que já existe): ")
-            valorcustomerid = valida.validacustomer(self, customerid)
-        # Validação employeeid
-        valorfunc = 0
-        while valorfunc == 0:
-            enployerid = input("Digite o identificador do funcionario: ")
-            valorfunc = valida.validaemployee(self, enployerid)
 
-        valor = input("Digite o novo valor para o atributo: ")
-        if(campo == 1 or campo == 2 or campo == 3):
-            year, month, day = map(int, valor.split('-'))
-            valor = datetime(year, month, day)
+        # Verificar se a ordem existe
+        verificaordem = 0
+        while verificaordem == 0:
+            valor_ordem=input("Digite o ID da ordem da venda: ")
+            verificaordem = valida.verificaordem(self, valor_ordem)
 
-        elif(campo == 4):
-            Decimal(valor)
-            
-        return(valor_ordem, customerid, enployerid, atributos[campo], valor)
+        # Para alterar o identificador do cliente, é necessario que ele exista. Portanto, fazemos a validacao:
+        if(campo == 12):
+            valorcustomerid = 0
+            while valorcustomerid == 0:
+                customerid = input("Digite o novo identificador do cliente (identificador é string de cliente que já existe): ")
+                valorcustomerid = valida.validacustomer(self, customerid)
+
+        # Para alterar o identificador do funcionario, é necessario que ele exista. Portanto, fazemos a validacao:
+        elif(campo == 13):
+            valorfunc = 0
+            while valorfunc == 0:
+                enployerid = input("Digite o novo identificador do funcionario: ")
+                valorfunc = valida.validaemployee(self, enployerid)
+        else:
+            valor = input("Digite o novo valor para o atributo: ")
+            if(campo == 1 or campo == 2 or campo == 3):
+                year, month, day = map(int, valor.split('-'))
+                valor = datetime(year, month, day)
+
+            elif(campo == 4):
+                Decimal(valor)        
+
+        return (valor_ordem, atributos[campo], valor)

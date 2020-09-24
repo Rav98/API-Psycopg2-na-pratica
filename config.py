@@ -1,3 +1,10 @@
+'''
+COM232 - BANCO DE DADOS 2
+
+2018005379 - Flávio Mota Gomes
+2018000980 - Rafael Antunes Vieira
+'''
+
 import psycopg2
 
 
