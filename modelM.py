@@ -124,15 +124,13 @@ class PedidoM():
     
     def deletavenda(self, id):
         print("\n", id)
-        string_sql = 'DELETE FROM northwind.orders WHERE orderid = %s;'
+        string_sql = 'DELETE FROM northwind.order_details WHERE orderid = %s;'
+        print("\n\n", string_sql)
         status = config.alteraBD(config, string_sql, [id])
         print("\n", status)
         if status == 'sucesso':
-            string_sql_1 = 'SELECT productid FROM northwind.orders WHERE orderid = %s'
-            aux = config.consultaBD(config, string_sql_1, [id])
-            string_sql = 'DELETE FROM northwind.order_details WHERE productid = %s AND orderid = %s;' 
-            parametros = (aux[1], [id])           
-            status = config.alteraBD(config, string_sql, parametros)
+            string_sql_1 = 'DELETE FROM northwind.orders WHERE orderid = %s;' 
+            status = config.alteraBD(config, string_sql_1, [id])
             return status
         else:
             return None
