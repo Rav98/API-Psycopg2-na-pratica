@@ -2,6 +2,7 @@ from decimal import *
 from modelM import *
 from model import *
 from datetime import datetime
+import modelM
 
 
 class View():
@@ -17,7 +18,9 @@ class View():
         print("Digite 5 para CONSULTAR RELATORIO DE PRODUTO")
         print("Digite 6 para CADASTRAR VENDA")
         print("Digite 7 para ALTERAR A QUANTIDADE DE PRODUTOS VENDIDOS")
-        print("Digite 8 para SAIR")
+        print("Digite 8 para UPDATE VENDA")
+        print("Digite 9 para APAGAR VENDA")
+        print("Digite 0 para SAIR")
         opcao = int(input("Opção escolhida: "))
         return opcao
 
@@ -99,8 +102,19 @@ class View():
 
     def coletadadospedido(self):
         orderid = input("Digite o identificador do pedido: ")
-        customerid = input("Digite o identificador do cleinte: ")
-        enployerid = input("Digite o identificador do funcionario: ")
+
+        #Validação customerid
+        valorcustomerid = 0
+        while valorcustomerid == 0:
+            customerid = input("Digite o identificador do cliente (identificador é string de cliente que já existe): ")
+            valorcustomerid = valida.validacustomer(self, customerid)
+        
+        #Validação employeeid
+        valorfunc = 0
+        while valorfunc == 0:
+            enployerid = input("Digite o identificador do funcionario: ")
+            valorfunc = valida.validaemployee(self, enployerid)
+        
         orderdate = input("Digite a data do pedido (AAAA-MM-DD): ")
         requireddate = input("Digite a data do fechamento do pedido (AAAA-MM-DD): ")
         shippeddate = input("Digite a data do envio do pedido (AAAA-MM-DD): ")
@@ -108,17 +122,18 @@ class View():
         shipname = input("Digite o local do envio: ")
         shipaddress = input("Digite o endereço: ")
         shipcity = input("Digite a cidade do envio: ")
-        shipregion = input("Digite o região do envio:")
+        shipregion = input("Digite o região do envio: ")
         shipcountry = input("Digite o pais: ")
         shippostalcode = input("Digite o CEP: ")
-        shipperid = input("Digite o id do endereço de envio:")
+        shipperid = input("Digite o id do endereço de envio: ")
         year, month, day = map(int, orderdate.split('-'))
-        orderdate = datetime.datetime(year, month, day)
+        orderdate = datetime(year, month, day)
         year, month, day = map(int, requireddate.split('-'))
-        requireddate = datetime.datetime(year, month, day)
+        requireddate = datetime(year, month, day)
         year, month, day = map(int, shippeddate.split('-'))
-        pedido = (int(orderid), int(customerid), int(enployerid), int(orderdate), int(requireddate), int(shippeddate), int(freight), int(
-            shipname), int(shipaddress), int(shipcity), int(shipregion), int(shipcountry), int(shippostalcode), int(shipperid))
+        shippeddate = datetime(year, month, day)
+        pedido = (int(orderid), customerid, int(enployerid), orderdate, requireddate, shippeddate, Decimal(freight),
+            shipname, shipaddress, shipcity, shipregion, shipcountry, shippostalcode, int(shipperid))
         return pedido
 
     def coletaprodutospedido(self, orderid):
@@ -130,7 +145,7 @@ class View():
             unitprice = input("Digite valor do produto: ")
             quntity = input("Digite a quantidade comprada: ")
             discount = input("Digite o valor do desconto: ")
-            produtoPedido = OrderDetails(int(orderid), int(productid), int(unitprice), int(quntity), int(discount))
+            produtoPedido = OrderDetails(int(orderid), int(productid), Decimal(unitprice), int(quntity), Decimal(discount))
             listaProdutos.append(produtoPedido)
             i = int(input("Deseja continuar cadastrar produtos para para esse pedido? (-1 para não | 1 para sim): "))
         return listaProdutos
@@ -142,7 +157,7 @@ class View():
         return [pedidoid, productid, quantidade]
 
     def imprimeStatus(self, status):
-        if(status == "SUCESSO"):
+        if(status == "sucesso"):
             print("COMANDO EXECUTADO NO BANCO DE DADOS!!!")
         else:
             print(status)

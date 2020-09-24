@@ -35,11 +35,11 @@ class Controle:
                 self.view.imprimeRelatorio(l)
             if opcao == 6:
                 l = self.view.coletadadospedido()
-                p = self.view.coletaprodutospedido(self, l[0])
-                status = PedidoM.cadastraVenda(l, p)
+                p = self.view.coletaprodutospedido(l[0])
+                status = PedidoM.cadastraVenda(self, l, p)
                 self.view.imprimeStatus(status)
             if opcao == 7:
-                l = self.view.coletadadospedidoupdate(self)
+                l = self.view.coletadadospedidoupdate()
                 status = PedidoM.alteravenda(self, l)
                 self.view.imprimeStatus(status)
             opcao = self.view.menu()

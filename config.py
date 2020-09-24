@@ -95,3 +95,37 @@ class config:
             if conn is not None:
                 conn.close()
             return "sucesso"
+
+
+    def consultaExisteBD(self, stringSQL, valores):
+        # iniciar conexão vazio
+        conn = None
+        try:
+            # abrir a conexão
+            conexao = psycopg2.connect(config.setParametros(self).dadosconexao)
+
+            # abrir a sessão - a transação começa aqui
+            sessao = conexao.cursor()
+
+            # Executar a remoção na memória RAM
+            sessao.execute(stringSQL, valores)
+
+            # Armazenar os resultados:
+            registros = sessao.fetchall()
+            if(registros == []):
+                retorno = 0
+            else:
+                retorno = 1
+
+            # Comitar a remoçao - fechar a transação
+            conexao.commit()
+
+            # Encerrar a sessão
+            sessao.close()
+
+        except psycopg2.Error:
+            return psycopg2.Error
+        finally:
+            if conn is not None:
+                conn.close()
+        return retorno

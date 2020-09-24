@@ -62,24 +62,35 @@ class PedidoM():
             registros = config.consultaBD(config, string_sql, [[]])
         else:
             string_sql = """SELECT * FROM relatorio WHERE orderid = %s"""
-            #string_sql = """SELECT northwind.gerarelatorio(%s)"""
             registros = config.consultaBD(config, string_sql, [id])
             print(registros[0])
         if(len(registros[1]) == 0):
             registros = None
         return registros
 
-    def cadastravendas(self, dadospedido, listaprodutos):
-        dadospedido = [258952, 2, 2, datetime(2020, 9, 21, 0, 0), datetime(
-            2020, 9, 22, 0, 0), datetime(2020, 9, 23, 0, 0), Decimal('36'), 'abc', ]
-        string_SQL_pedido = """INSERT INTO northwind.orders(orderid, customerid, empoyerid, overdate, requiredate, shippeddate, freight, shipname) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);"""
+    def cadastraVenda(self, dadospedido, listaprodutos):
+        string_SQL_pedido = """INSERT INTO northwind.orders(orderid, customerid, employeeid, orderdate, requireddate, shippeddate, freight, shipname, shipaddress, shipcity, shipregion, shippostalcode, shipcountry, shipperid) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"""
         string_SQL_produto = """INSERT INTO northwind.order_details(orderid, productid, unitprice, quantity, discount) VALUES (%s, %s, %s, %s, %s);"""
-        status = config.cadastravendaBD(
-            config, string_SQL_pedido, string_SQL_produto, dadospedido, listaprodutos)
+        status = config.cadastravendaBD(config, string_SQL_pedido, string_SQL_produto, dadospedido, listaprodutos)
         return status
 
     def alteravenda(self, dadospedido):
         string_sql = """UPDATE northwind.order_details SET quantity = %s WHERE orderid = %s AND productid = %s"""
         parametros = (dadospedido[2], dadospedido[0], dadospedido[1])
         status = config.alteraBD(config, string_sql, parametros)
+        return status
+
+class valida():
+    def validacustomer(self, customerid):
+        string_SQL = """SELECT * FROM northwind.customers WHERE customerid = %s;"""
+        status = config.consultaExisteBD(config, string_SQL, [customerid])
+        if(status == 0):
+            print("Valor não existe no banco. Digite um valor válido.")
+        return status
+
+    def validaemployee(self, employeeid):
+        string_SQL = """SELECT * FROM northwind.employees WHERE employeeid = %s;"""
+        status = config.consultaExisteBD(config, string_SQL, [employeeid])
+        if(status == 0):
+            print("Valor não existe no banco. Digite um valor válido.")
         return status
