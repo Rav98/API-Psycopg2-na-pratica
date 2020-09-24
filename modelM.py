@@ -47,8 +47,10 @@ class ProdutoM():
             return None
 
     def atualizaproduto(self, l):
+        print(l[0], l[1], l[2])
+
         string_sql = """UPDATE northwind.products SET %s = %s WHERE productid = %s"""
-        parametros = ((AsIs(l[1])), int(l[2]), int(l[0]))
+        parametros = ((AsIs(l[1])), int(l[2]), (AsIs(l[0])))
         status = config.alteraBD(config, string_sql, parametros)
         return status
 
@@ -59,10 +61,11 @@ class PedidoM():
             string_sql = """SELECT * FROM northwind.relatorio"""
             registros = config.consultaBD(config, string_sql, [[]])
         else:
-            string_sql = """SELECT * FROM northwind.relatorio WHERE numpedido = %s"""
+            string_sql = """SELECT * FROM northwind.relatorios WHERE numpedido = %s"""
             registros = config.consultaBD(config, string_sql, [id])
-        if(len(registros[1]) == 0):
-            registros = None
+            print(registros[1])
+        #if(len(registros[1]) == 0):
+            #registros = None
         return registros
 
     def cadastravendas(self, dadospedido, listaprodutos):

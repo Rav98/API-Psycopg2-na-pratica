@@ -16,13 +16,13 @@ class Produto():
         self.descontinuado = discontinued
 
 
-    def criaProduto(listaValores):
+    def criaProduto(self, listaValores):
         return Produto(int(listaValores[0]), str(listaValores[1]), int(listaValores[2]), int(listaValores[3]),
              str(listaValores[4]), Decimal(listaValores[5]),
              int(listaValores[6]), int(listaValores[7]), int(listaValores[8]), str(listaValores[9]))
 
 
-    def cadastraProduto(produto):
+    def cadastraProduto(self, produto):
         string_sql = 'INSERT INTO northwind.products (productid, productname, supplierid, categoryid, quantityperunit, unitprice, ' \
                      'unitsinstock, unitsonorder, reorderlevel, discontinued) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
         record_to_insert = (produto.id, produto.nome, produto.fornecedor, produto.categoria, produto.quantidadeEmbalagem, produto.precoUnitario, produto.estoque, produto.vendas, produto.nivel, produto.descontinuado)
@@ -53,7 +53,7 @@ class Produto():
                 print("O registro foi inserido com sucesso")
                 conn.close()
 
-    def deletaproduto(id):
+    def deletaproduto(self, id):
         conn_string = "host='localhost' dbname='Northwind' user='postgres' password='root'"
         string_sql = 'DELETE FROM northwind.products WHERE productid = %s;'
         # iniciar a inserção do registro
@@ -84,7 +84,7 @@ class Produto():
             if conn is not None:
                 conn.close()
 
-    def consultaproduto(id):
+    def consultaproduto(self, id):
         conn_string = "host='localhost' dbname='Northwind' user='postgres' password='root'"
         string_sql = 'SELECT * FROM northwind.products WHERE productid = %s;'
         # iniciar a inserção do registro
@@ -116,7 +116,7 @@ class Produto():
             prod = Produto.criaProduto(registros[0])
             return prod
 
-    def atualizavaloresupdate(l):
+    def atualizavaloresupdate(self, l):
         string_sql = """UPDATE northwind.products SET %s = %s WHERE productid = %s"""
         record_to_insert = ((AsIs(l[1])), int(l[2]), int(l[0]))
         conn_string = "host='localhost' dbname='Northwind' user='postgres' password='root'"
@@ -150,7 +150,7 @@ class Produto():
 
 
 class Pedido():
-    def consultarelatorio(id):
+    def consultarelatorio(self, id):
         if (id == -1):
             string_sql = """SELECT * FROM northwind.relatorio"""
         else:
@@ -190,7 +190,7 @@ class Pedido():
                 conn.close()
         return (colnames, registros)
 
-    def cadastraVenda(dadospedido, listaprodutos):
+    def cadastraVenda(self, dadospedido, listaprodutos):
         string_SQL_pedido = """INSERT INTO northwind.orders(orderid, customerid, employeeid, orderdate, requireddate, shippeddate, freight, shipname, shipaddress, shipcity, shipregion, shippostalcode, shipcountry, shipperid) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
         pedido_to_insert = (dadospedido)
         conn_string = "host='localhost' dbname='Northwind' user='postgres' password='root'"
@@ -234,7 +234,7 @@ class OrderDetails():
         self.quantidade = quantity
         self.desconto = discount
 
-    def alteraVenda(dadospedido):
+    def alteraVenda(self, dadospedido):
         string_SQL = """UPDATE northwind.order_details SET quantity = %s WHERE orderid = %s AND productid = %s"""
         record_to_insert = (dadospedido[2],dadospedido[0], dadospedido[1])
         conn_string = "host='localhost' dbname='Northwind' user='postgres' password='root'"

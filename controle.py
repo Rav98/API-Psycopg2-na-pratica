@@ -26,9 +26,9 @@ class Controle:
                 prod = ProdutoM.consultaproduto(self, id)
                 self.view.imprimeproduto(prod)
                 if(prod is not None):
-                    l = self.view.coletadadosprodutoupdate(self)
+                    l = self.view.coletadadosprodutoupdate(id)
                     status = ProdutoM.atualizaproduto(self, l)
-                    self.view.imprimeProduto(status)
+                    self.view.imprimeStatus(status)
             if opcao == 5:
                 id = self.view.recebecodproduto()
                 l = PedidoM.consultarelatorio(self, id)
