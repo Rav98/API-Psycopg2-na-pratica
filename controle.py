@@ -39,8 +39,8 @@ class Controle:
                 status = PedidoM.cadastraVenda(l, p)
                 self.view.imprimeStatus(status)
             if opcao == 7:
-                l = self.view.coletadadosprodutoupdate(self)
-                status = PedidoM.alteraVenda(self, l)
+                l = self.view.coletadadospedidoupdate(self)
+                status = PedidoM.alteravenda(self, l)
                 self.view.imprimeStatus(status)
             opcao = self.view.menu()
 
