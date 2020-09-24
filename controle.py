@@ -37,7 +37,7 @@ class Controle:
                     status = ProdutoM.atualizaproduto(self, l)
                     self.view.imprimeStatus(status)
             if opcao == 5:
-                id = self.view.recebecodproduto()
+                id = self.view.recebecodpedido()
                 l = PedidoM.consultarelatorio(self, id)
                 self.view.imprimeRelatorio(l)
             if opcao == 6:

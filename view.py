@@ -23,7 +23,7 @@ class View():
         print("|    -> Digite 2 para DELETAR PRODUTO                            |")
         print("|    -> Digite 3 para CONSULTAR PRODUTO                          |")
         print("|    -> Digite 4 para ALTERAR PRODUTO                            |")
-        print("|    -> Digite 5 para CONSULTAR RELATORIO DE PRODUTO             |")
+        print("|    -> Digite 5 para CONSULTAR RELATORIO DE PEDIDOS             |")
         print("|    -> Digite 6 para ALTERAR A QUANTIDADE DE PRODUTOS VENDIDOS  |")
         print("| -> Menu Ordem                                                  |")
         print("|    -> Digite 7 para CADASTRAR ORDEM                            |")
@@ -77,6 +77,10 @@ class View():
         productid = int(input("Digite o identificador do produto: "))
         return productid
 
+    def recebecodpedido(self):
+        productid = int(input("Digite o identificador do pedido: "))
+        return productid
+
     def recebecodvenda(self):
         vendaid = int(input("Digite o identificador da venda: "))
         return vendaid
@@ -123,7 +127,6 @@ class View():
     def imprimeRelatorio(self, registros):
         if(registros is not None):
             colunas = registros[0]
-            print("\n\nColuna: ", colunas)
             dados = registros[1]
             print("\n\nDados: ")
             print("A consulta retornou", len(dados), "registros")
@@ -233,17 +236,16 @@ class View():
         if(campo == 12):
             valorcustomerid = 0
             while valorcustomerid == 0:
-                customerid = input(
+                valor = input(
                     "Digite o novo identificador do cliente (identificador é string de cliente que já existe): ")
-                valorcustomerid = valida.validacustomer(self, customerid)
+                valorcustomerid = valida.validacustomer(self, valor)
 
         # Para alterar o identificador do funcionario, é necessario que ele exista. Portanto, fazemos a validacao:
         elif(campo == 13):
             valorfunc = 0
             while valorfunc == 0:
-                enployerid = input(
-                    "Digite o novo identificador do funcionario: ")
-                valorfunc = valida.validaemployee(self, enployerid)
+                valor = input("Digite o novo identificador do funcionario: ")
+                valorfunc = valida.validaemployee(self, valor)
         else:
             valor = input("Digite o novo valor para o atributo: ")
             if(campo == 1 or campo == 2 or campo == 3):

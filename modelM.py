@@ -101,7 +101,6 @@ class PedidoM():
         else:
             string_sql = """SELECT * FROM relatorio WHERE orderid = %s"""
             registros = config.consultaBD(config, string_sql, [id])
-            print(registros[0])
         if(len(registros[1]) == 0):
             registros = None
         return registros
@@ -129,11 +128,8 @@ class PedidoM():
             return None
 
     def deletavenda(self, id):
-        print("\n", id)
         string_sql = 'DELETE FROM northwind.order_details WHERE orderid = %s;'
-        print("\n\n", string_sql)
         status = config.alteraBD(config, string_sql, [id])
-        print("\n", status)
         if status == 'sucesso':
             string_sql_1 = 'DELETE FROM northwind.orders WHERE orderid = %s;'
             status = config.alteraBD(config, string_sql_1, [id])
@@ -143,11 +139,7 @@ class PedidoM():
 
     def atualizaordemvenda(self, dadospedido):
         string_SQL_venda = """UPDATE northwind.orders SET %s = '%s' WHERE orderid = %s"""
-        print("\n\n", dadospedido[0], dadospedido[1], dadospedido[2])
-        print("\n\nUPDATE northwind.orders SET",
-              dadospedido[1], " = ", dadospedido[2], "WHERE orderid = ", dadospedido[0])
-        parametros = ((AsIs(dadospedido[1])), AsIs(
-            dadospedido[2]), int(dadospedido[0]))
+        parametros = ((AsIs(dadospedido[1])), AsIs(dadospedido[2]), int(dadospedido[0]))
         status = config.atualizaordemvendaBD(
             config, string_SQL_venda, parametros)
         return status
