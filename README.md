@@ -28,7 +28,7 @@ Esta aplicação foi feita atendendo os requisitos da atividade avaliativa da ma
 - ### config.py
   Responsavel por receber a query e os dados enviados do modelM para executar no banco de dados PostgreSQL.
   
-- ### banco.SQL
+- ### northwind.backup
   Backup do banco de dados utilizado para a conexão com a aplicação. 
   
   
