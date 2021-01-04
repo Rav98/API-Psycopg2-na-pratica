@@ -26,7 +26,7 @@ Esta aplicação foi feita atendendo os requisitos da atividade avaliativa da ma
    Este arquivo é parecido com o (model.py), mas não contêm a parte de conexão com o banco. Neste caso, o código escrito nesse arquivo, prepara a query e chama outro arquivo (config.py) que será responsavel por fazer a conexão com o banco. Essa separação foi feita para fins de estudo.
    
 - ### config.py
-  Responsavel por receber a query e os dados enviados do modelM para executar no banco de dados PostgreSQL.
+  Responsavel por receber a query e os dados enviados do modelM para fazer a coneção no banco de dados, utilizando o driver de conexão Psycopg2.
   
 - ### northwind.backup
   Backup do banco de dados utilizado para a conexão com a aplicação. 
