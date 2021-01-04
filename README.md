@@ -1,4 +1,4 @@
-# Conection-database-and-Python
+# Utilizando a API Psycopg2 em uma aplicação
 
 Neste repositório contém uma aplicação em python, que foi desenvolvida para fins de estudo, com o intuito de fazer uma conexão com um banco de dados PostgreSQL, utilizando o drive de conexão Psycopg2.
 
